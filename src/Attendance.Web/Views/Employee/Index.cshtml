@@ -5,3 +5,12 @@
 }
 
 <h2>Employees</h2>
+
+@Html.ActionLink("Create", "Create", "Employee")
+
+<ul>
+@foreach (var employee in Model.Employees)
+{
+    <li>@employee.FirstName @employee.LastName</li>
+}
+</ul>

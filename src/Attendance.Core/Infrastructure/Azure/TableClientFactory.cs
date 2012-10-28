@@ -1,5 +1,6 @@
 ﻿using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.StorageClient;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,16 @@ namespace Attendance.Core.Infrastructure.Azure
     {
         public CloudTableClient CreateTableClient()
         {
-            var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
-            return storageAccount.CreateCloudTableClient();
+            var setting = CloudConfigurationManager.GetSetting("StorageConnectionString");
+            try
+            {
+                var storageAccount = CloudStorageAccount.Parse(setting);
+                return storageAccount.CreateCloudTableClient();
+            }
+            catch (Exception e)
+            {
+            }
+            return null;
         }
     }
 }

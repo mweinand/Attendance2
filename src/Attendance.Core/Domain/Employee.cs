@@ -1,5 +1,5 @@
 ﻿using Attendance.Core.Infrastructure.Azure;
-using Microsoft.WindowsAzure.StorageClient;
+using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +8,10 @@ using System.Text;
 namespace Attendance.Core.Domain
 {
     [TableStorageName("employees")]
-    public class Employee : TableServiceEntity
+    public class Employee : TableEntity
     {
+        public Employee() { }
+
         public string CompanyId
         {
             get { return this.PartitionKey; }

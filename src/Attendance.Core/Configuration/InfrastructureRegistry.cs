@@ -1,6 +1,8 @@
-﻿using Attendance.Core.Infrastructure;
+﻿using Attendance.Core.Domain;
+using Attendance.Core.Infrastructure;
 using Attendance.Core.Infrastructure.Azure;
-using Microsoft.WindowsAzure.StorageClient;
+using Microsoft.WindowsAzure.Storage.Table;
+using Microsoft.WindowsAzure.Storage.Table.DataServices;
 using StructureMap.Configuration.DSL;
 using System;
 using System.Collections.Generic;
@@ -21,7 +23,8 @@ namespace Attendance.Core.Configuration
                 });
 
             For<CloudTableClient>().Use(ctx => ctx.GetInstance<ITableClientFactory>().CreateTableClient());
-            For<TableServiceContext>().Use(ctx => ctx.GetInstance<CloudTableClient>().GetDataServiceContext());
+            For<ITableReference<Employee>>().Use(ctx => new TableReference<Employee>(ctx.GetInstance<CloudTableClient>()));
+            For<IUnitOfWork<Employee>>().Use(ctx => new UnitOfWork<Employee>(ctx.GetInstance<ITableReference<Employee>>()));
         }
     }
 }

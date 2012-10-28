@@ -1,4 +1,4 @@
-﻿using Microsoft.WindowsAzure.StorageClient;
+﻿using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +22,7 @@ namespace Attendance.Core.Infrastructure.Azure
 
         public void CreateTablesIfNotExist()
         {
-            _tableClient.CreateTableIfNotExist("employees");
+            _tableClient.GetTableReference("employees").CreateIfNotExists();
         }
     }
 }

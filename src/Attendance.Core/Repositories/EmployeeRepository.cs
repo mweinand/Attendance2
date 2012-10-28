@@ -1,7 +1,7 @@
 ﻿using Attendance.Core.Domain;
 using Attendance.Core.Infrastructure.Azure;
 using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.StorageClient;
+using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,21 +16,19 @@ namespace Attendance.Core.Repositories
 
     public class EmployeeRepository : IEmployeeRepository
     {
-        private readonly IServiceContext _serviceContext;
+        private readonly ITableReference<Employee> _tableReference;
 
-        public EmployeeRepository(IServiceContext serviceContext)
+        public EmployeeRepository(ITableReference<Employee> tableReference)
         {
-            _serviceContext = serviceContext;
+            _tableReference = tableReference;
         }
 
         public IEnumerable<Employee> GetEmployeesInCompany(string companyId)
         {
-            CloudTableQuery<Employee> partitionQuery =
-                (from e in _serviceContext.CreateQuery<Employee>()
-                 where e.PartitionKey == companyId
-                 select e).AsTableServiceQuery<Employee>();
+            TableQuery<Employee> partitionQuery = new TableQuery<Employee>().Where(
+                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, companyId));
 
-            return partitionQuery.AsEnumerable();
+            return _tableReference.ExecuteQuery(partitionQuery);
         }
     }
 }
