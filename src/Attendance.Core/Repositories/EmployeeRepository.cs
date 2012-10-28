@@ -1,4 +1,5 @@
 ﻿using Attendance.Core.Domain;
+using Attendance.Core.Infrastructure.Azure;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.StorageClient;
 using System;
@@ -15,18 +16,17 @@ namespace Attendance.Core.Repositories
 
     public class EmployeeRepository : IEmployeeRepository
     {
+        private readonly IServiceContext _serviceContext;
+
+        public EmployeeRepository(IServiceContext serviceContext)
+        {
+            _serviceContext = serviceContext;
+        }
+
         public IEnumerable<Employee> GetEmployeesInCompany(string companyId)
         {
-            var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
-            var tableClient = storageAccount.CreateCloudTableClient();
-
-            tableClient.CreateTableIfNotExist("employees");
-
-            // Get the data service context
-            TableServiceContext serviceContext = tableClient.GetDataServiceContext();
-
             CloudTableQuery<Employee> partitionQuery =
-                (from e in serviceContext.CreateQuery<Employee>("employees")
+                (from e in _serviceContext.CreateQuery<Employee>()
                  where e.PartitionKey == companyId
                  select e).AsTableServiceQuery<Employee>();
 

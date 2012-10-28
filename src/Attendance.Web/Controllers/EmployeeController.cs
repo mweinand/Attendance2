@@ -10,11 +10,11 @@ namespace Attendance.Web.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IEmployeeRepository employeeRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public EmployeeController()
+        public EmployeeController(IEmployeeRepository employeeRepository)
         {
-            employeeRepository = new EmployeeRepository();
+            _employeeRepository = employeeRepository;
         }
 
         //
@@ -24,7 +24,7 @@ namespace Attendance.Web.Controllers
         {
             var model = new EmployeeIndexModel();
 
-            model.Employees = employeeRepository.GetEmployeesInCompany("1");
+            model.Employees = _employeeRepository.GetEmployeesInCompany("1");
 
             return View(model);
         }
