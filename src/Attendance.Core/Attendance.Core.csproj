@@ -62,6 +62,7 @@
     <Compile Include="Configuration\InfrastructureRegistry.cs" />
     <Compile Include="Configuration\RepositoryRegistry.cs" />
     <Compile Include="Domain\Employee.cs" />
+    <Compile Include="Domain\Punch.cs" />
     <Compile Include="Infrastructure\Azure\TableClientFactory.cs" />
     <Compile Include="Infrastructure\Azure\TableReference.cs" />
     <Compile Include="Infrastructure\Azure\TableStorageCreator.cs" />

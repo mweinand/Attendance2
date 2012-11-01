@@ -23,6 +23,7 @@ namespace Attendance.Core.Infrastructure.Azure
         public void CreateTablesIfNotExist()
         {
             _tableClient.GetTableReference("employees").CreateIfNotExists();
+            _tableClient.GetTableReference("punches").CreateIfNotExists();
         }
     }
 }

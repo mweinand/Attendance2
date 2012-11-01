@@ -12,6 +12,7 @@ namespace Attendance.Core.Repositories
     public interface IEmployeeRepository
     {
         IEnumerable<Employee> GetEmployeesInCompany(string companyId);
+        Employee FindEmployeeById(string companyId, string serial);
     }
 
     public class EmployeeRepository : IEmployeeRepository
@@ -29,6 +30,13 @@ namespace Attendance.Core.Repositories
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, companyId));
 
             return _tableReference.ExecuteQuery(partitionQuery);
+        }
+
+        public Employee FindEmployeeById(string companyId, string serial)
+        {
+            var operation = TableOperation.Retrieve<Employee>(companyId, serial);
+            var result = _tableReference.Execute(operation);
+            return result.Result as Employee;
         }
     }
 }

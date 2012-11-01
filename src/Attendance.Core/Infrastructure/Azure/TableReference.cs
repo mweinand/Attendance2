@@ -9,8 +9,8 @@ namespace Attendance.Core.Infrastructure.Azure
 {
     public interface ITableReference<TEntity> where TEntity : ITableEntity, new()
     {
-        void Execute(TableOperation operation, TableRequestOptions requestOptions = null, OperationContext operationContext = null);
-        void ExecuteBatch(TableBatchOperation operation, TableRequestOptions requestOptions = null, OperationContext operationContext = null);
+        TableResult Execute(TableOperation operation, TableRequestOptions requestOptions = null, OperationContext operationContext = null);
+        IList<TableResult> ExecuteBatch(TableBatchOperation operation, TableRequestOptions requestOptions = null, OperationContext operationContext = null);
         IEnumerable<TEntity> ExecuteQuery(TableQuery<TEntity> query, TableRequestOptions requestOptions = null, OperationContext operationContext = null);
     }
 
@@ -30,14 +30,14 @@ namespace Attendance.Core.Infrastructure.Azure
             _table = tableClient.GetTableReference(attribute.TableName);
         }
 
-        public void Execute(TableOperation operation, TableRequestOptions requestOptions = null, OperationContext operationContext = null)
+        public TableResult Execute(TableOperation operation, TableRequestOptions requestOptions = null, OperationContext operationContext = null)
         {
-            _table.Execute(operation, requestOptions, operationContext);
+            return _table.Execute(operation, requestOptions, operationContext);
         }
 
-        public void ExecuteBatch(TableBatchOperation operation, TableRequestOptions requestOptions = null, OperationContext operationContext = null)
+        public IList<TableResult> ExecuteBatch(TableBatchOperation operation, TableRequestOptions requestOptions = null, OperationContext operationContext = null)
         {
-            _table.ExecuteBatch(operation, requestOptions, operationContext);
+            return _table.ExecuteBatch(operation, requestOptions, operationContext);
         }
 
         public IEnumerable<TEntity> ExecuteQuery(TableQuery<TEntity> query, TableRequestOptions requestOptions = null, OperationContext operationContext = null)

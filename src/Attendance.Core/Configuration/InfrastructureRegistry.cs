@@ -23,8 +23,12 @@ namespace Attendance.Core.Configuration
                 });
 
             For<CloudTableClient>().Use(ctx => ctx.GetInstance<ITableClientFactory>().CreateTableClient());
+
             For<ITableReference<Employee>>().Use(ctx => new TableReference<Employee>(ctx.GetInstance<CloudTableClient>()));
+            For<ITableReference<Punch>>().Use(ctx => new TableReference<Punch>(ctx.GetInstance<CloudTableClient>()));
+
             For<IUnitOfWork<Employee>>().Use(ctx => new UnitOfWork<Employee>(ctx.GetInstance<ITableReference<Employee>>()));
+            For<IUnitOfWork<Punch>>().Use(ctx => new UnitOfWork<Punch>(ctx.GetInstance<ITableReference<Punch>>()));
         }
     }
 }

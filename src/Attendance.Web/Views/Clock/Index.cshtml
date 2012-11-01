@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Time Clock";
+}
+
+<h2>Time Clock</h2>
+
+<div>
+	<input type="text" id="ScanInput" />	
+</div>
+<div style="margin: 10px 0px;">
+	<span style="font-size:400%;" id="StatusMessage"></span>
+</div>
+<div id="LoggedInUsers">
+    @{Html.RenderAction("CurrentEmployees");}
+</div>
