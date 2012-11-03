@@ -56,5 +56,40 @@ namespace Attendance.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Import()
+        {
+            var model = new ImportViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Import(ImportInputModel inputModel)
+        {
+            var existingEmployees = _employeeRepository.GetEmployeesInCompany("1");
+            var rows = inputModel.ImportText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            _employeeUnitOfWork.Initialize();
+
+            foreach (var row in rows)
+            {
+                var parts = row.Split(',');
+                var serial = parts[0];
+                if (parts.Length != 3 || existingEmployees.Any(e => e.SerialNumber == serial))
+                {                    
+                    continue;
+                }
+
+                var newEmployee = new Employee();
+                newEmployee.CompanyId = "1";
+                newEmployee.SerialNumber = serial;
+                newEmployee.FirstName = parts[1];
+                newEmployee.LastName = parts[2];
+
+                _employeeUnitOfWork.Insert(newEmployee);
+
+            }
+            _employeeUnitOfWork.Execute();
+            return RedirectToAction("Index");
+        }
     }
 }
