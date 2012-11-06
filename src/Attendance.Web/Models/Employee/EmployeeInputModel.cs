@@ -17,5 +17,7 @@ namespace Attendance.Web.Models.Employee
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        [HiddenInput]
+        public string OriginalSerial { get; set; }
     }
 }

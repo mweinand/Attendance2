@@ -11,7 +11,7 @@ namespace Attendance.Core.Infrastructure
     {
         void Initialize();
         void Insert(TEntity entity);
-        void Update(TEntity entity);
+        void InsertOrReplace(TEntity entity);
         void Delete(TEntity entity);
         void Execute();
     }
@@ -40,7 +40,7 @@ namespace Attendance.Core.Infrastructure
             _batchOperation.Insert(entity);
         }
 
-        public void Update(TEntity entity)
+        public void InsertOrReplace(TEntity entity)
         {
             _batchOperation.InsertOrReplace(entity);
         }

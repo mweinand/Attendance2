@@ -76,7 +76,7 @@ namespace Attendance.Web.Controllers
             }
 
             _employeeUnitOfWork.Initialize();
-            _employeeUnitOfWork.Update(employee);
+            _employeeUnitOfWork.InsertOrReplace(employee);
             _employeeUnitOfWork.Execute();
 
             return Json(response);

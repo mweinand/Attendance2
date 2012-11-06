@@ -32,10 +32,15 @@
         }
     };
 
+    var isReloading = false;
     var reloadCurrentUsers = function () {
+        if (isReloading) {
+            return;
+        }
         $("#LoggedInUsers").load('/Clock/CurrentEmployees', function () {
-
+            isReloading = false;
         });
+        isReloading = true;
     };
 
     scanInput.focus(function () {
@@ -78,4 +83,6 @@
     });
 
     resetForm();
+
+    $.ajaxSetup({ cache: false });
 });

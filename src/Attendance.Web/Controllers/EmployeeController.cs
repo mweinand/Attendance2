@@ -57,6 +57,49 @@ namespace Attendance.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult Edit(string id)
+        {
+            var model = new EmployeeViewModel();
+            var employee = _employeeRepository.FindEmployeeById("1", id);
+            if (employee == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            model.FirstName = employee.FirstName;
+            model.LastName = employee.LastName;
+            model.Serial1 = employee.SerialNumber;
+            model.Serial2 = employee.SerialNumber;
+            model.OriginalSerial = employee.SerialNumber;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EmployeeInputModel inputModel)
+        {
+            var employee = _employeeRepository.FindEmployeeById("1", inputModel.OriginalSerial);
+            if (employee == null)
+            {
+                return new HttpNotFoundResult();
+            }
+
+            if (inputModel.OriginalSerial != inputModel.Serial1)
+            {
+                _employeeUnitOfWork.Initialize();
+                _employeeUnitOfWork.Delete(employee);
+                _employeeUnitOfWork.Execute();
+            }
+
+            employee.SerialNumber = inputModel.Serial1;
+            employee.FirstName = inputModel.FirstName;
+            employee.LastName = inputModel.LastName;
+
+            _employeeUnitOfWork.InsertOrReplace(employee);
+            _employeeUnitOfWork.Execute();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public ActionResult Import()
         {
             var model = new ImportViewModel();
