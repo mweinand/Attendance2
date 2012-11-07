@@ -1,9 +1,13 @@
 ﻿@model Attendance.Web.Models.Clock.CurrentEmployeesViewModel
 
 <h2>Logged In</h2>
-<ul>
+<table>
 @foreach (var employee in Model.Employees)
 {
-    <li>@employee.FirstName @employee.LastName</li>
+    <tr>
+        <td>@employee.FirstName</td>
+        <td>@employee.LastName</td>
+        <td><a href="#" data-id="@employee.SerialNumber" class="sign-out-link">Sign Out</a></td>
+    </tr>
 }
-</ul>
+</table>

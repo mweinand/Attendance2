@@ -87,12 +87,16 @@ namespace Attendance.Web.Controllers
                 _employeeUnitOfWork.Initialize();
                 _employeeUnitOfWork.Delete(employee);
                 _employeeUnitOfWork.Execute();
+
+				employee = new Employee();
+				employee.CompanyId = "1";
             }
 
             employee.SerialNumber = inputModel.Serial1;
             employee.FirstName = inputModel.FirstName;
             employee.LastName = inputModel.LastName;
 
+			_employeeUnitOfWork.Initialize();
             _employeeUnitOfWork.InsertOrReplace(employee);
             _employeeUnitOfWork.Execute();
 

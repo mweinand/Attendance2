@@ -10,7 +10,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>EmployeeViewModel</legend>
+        <legend>Employee</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Serial1)
@@ -46,7 +46,7 @@
 
         <p>
             @Html.HiddenFor(model => model.OriginalSerial)
-            <input type="submit" value="Create" />
+            <input type="submit" value="Save" />
         </p>
     </fieldset>
 }

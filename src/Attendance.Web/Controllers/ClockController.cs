@@ -35,7 +35,10 @@ namespace Attendance.Web.Controllers
         {
             var model = new CurrentEmployeesViewModel();
 
-            model.Employees = _employeeRepository.GetEmployeesInCompany("1").Where(e => e.TimeIn.HasValue).ToList();
+            model.Employees = _employeeRepository.GetEmployeesInCompany("1")
+				.Where(e => e.TimeIn.HasValue)
+				.OrderBy(e => e.LastName).ThenBy(e => e.FirstName)
+				.ToList();
 
             return PartialView(model);
         }
