@@ -1,0 +1,25 @@
+﻿@model Attendance.Web.Models.Report.TooLongReportViewModel
+@{
+    ViewBag.Title = "TooLong";
+}
+
+<h2>TooLong</h2>
+
+<table>
+    <tr>
+        <th>Day</th>
+        <th>Time In</th>
+        <th>Time Out</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var punch in Model.Punches) {
+        <tr>
+            <td>@punch.TimeIn.DayOfWeek</td>
+            <td>@TimeZoneInfo.ConvertTimeFromUtc(punch.TimeIn, TimeZoneInfo.Local)</td>
+            <td>@TimeZoneInfo.ConvertTimeFromUtc(punch.TimeOut, TimeZoneInfo.Local)</td>
+            <td>@Html.ActionLink("2 Hours", "UpdateTime", new { serialNr = punch.SerialNumber, rowKey = punch.RowKey, hours = 2 })</td>
+            <td>@Html.ActionLink("8 Hours", "UpdateTime", new { serialNr = punch.SerialNumber, rowKey = punch.RowKey, hours = 8 })</td>
+        </tr>
+    }
+</table>

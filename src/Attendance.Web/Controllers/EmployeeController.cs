@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Attendance.Web.Controllers
 {
+	[Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
@@ -28,7 +29,7 @@ namespace Attendance.Web.Controllers
         {
             var model = new EmployeeIndexModel();
 
-            model.Employees = _employeeRepository.GetEmployeesInCompany("1");
+            model.Employees = _employeeRepository.GetEmployeesInCompany("1").OrderBy(e => e.FirstName).ThenBy(e => e.LastName);
 
             return View(model);
         }

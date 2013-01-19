@@ -1,0 +1,30 @@
+﻿@model Attendance.Web.Models.Report.EmployeeReportViewModel
+@{
+    ViewBag.Title = "Employee";
+}
+
+<h2>@Model.Name</h2>
+
+<div>
+    @Html.ActionLink("Back to Employees", "Index", "Employee")
+</div>
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Day</th>
+        <th>Time In</th>
+        <th>Time Out</th>
+    </tr>
+    @foreach (var punch in Model.Punches) {
+        <tr>
+            <td>@punch.TimeIn.ToShortDateString()</td>
+            <td>@punch.TimeIn.DayOfWeek</td>
+            <td class="@punch.TardyClass">@punch.TimeIn.ToLongTimeString()</td>
+            <td>@punch.TimeOut.ToLongTimeString()</td>
+        </tr>
+    }
+</table>
+
+<strong>Total Tardy: @Model.TotalTardy.ToString("0.00") minutes</strong><br />
+<strong>Total Hours: @Model.TotalHours.ToString("0.00") hours</strong>

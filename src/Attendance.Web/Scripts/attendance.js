@@ -70,7 +70,6 @@
         isReloading = true;
     };
 
-
     $('#LoggedInUsers').on('click', 'a.sign-out-link', function (e) {
         punchClock($(this).attr('data-id'));
         return false;
@@ -92,7 +91,6 @@
             punchClock(input);
         }
     });
-
 
     resetForm();
 

@@ -162,9 +162,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClockController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\SmDependencyResolver.cs" />
     <Compile Include="Global.asax.cs">
@@ -179,6 +181,9 @@
     <Compile Include="Models\Employee\EmployeeViewModel.cs" />
     <Compile Include="Models\Employee\ImportInputModel.cs" />
     <Compile Include="Models\Employee\ImportViewModel.cs" />
+    <Compile Include="Models\Report\EmployeeReportViewModel.cs" />
+    <Compile Include="Models\Report\TooLongReportViewModel.cs" />
+    <Compile Include="Models\Report\TooShortReportViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +243,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\attendance - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\attendance - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\attendance - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -285,17 +291,22 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Clock\Index.cshtml" />
     <Content Include="Views\Clock\CurrentEmployees.cshtml" />
     <Content Include="Views\Employee\Import.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Report\Employee.cshtml" />
+    <Content Include="Views\Report\TooShort.cshtml" />
+    <Content Include="Views\Report\TooLong.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

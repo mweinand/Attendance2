@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Attendance.Web.Controllers
 {
+	[Authorize]
     public class ClockController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
@@ -65,7 +66,7 @@ namespace Attendance.Web.Controllers
                 punch.RowKey = Guid.NewGuid().ToString();
                 punch.SerialNumber = employee.SerialNumber;
                 punch.TimeIn = employee.TimeIn.Value;
-                punch.TimeOut = DateTime.Now;
+                punch.TimeOut = DateTime.UtcNow;
                 _punchUnitOfWork.Initialize();
                 _punchUnitOfWork.Insert(punch);
                 _punchUnitOfWork.Execute();
@@ -74,7 +75,7 @@ namespace Attendance.Web.Controllers
             }
             else
             {
-                employee.TimeIn = DateTime.Now;
+				employee.TimeIn = DateTime.UtcNow;
                 response.Direction = 1;
             }
 

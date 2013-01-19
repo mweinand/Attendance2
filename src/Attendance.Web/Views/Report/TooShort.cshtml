@@ -1,0 +1,21 @@
+﻿@model Attendance.Web.Models.Report.TooShortReportViewModel
+@{
+    ViewBag.Title = "TooShort";
+}
+
+<h2>Too Short</h2>
+
+<table>
+    <tr>
+        <th>Time In</th>
+        <th>Time Out</th>
+        <th></th>
+    </tr>
+    @foreach (var punch in Model.Punches) {
+        <tr>
+            <td>@punch.TimeIn</td>
+            <td>@punch.TimeOut</td>
+            <td>@Html.ActionLink("Delete", "DeletePunch", new { serialNr = punch.SerialNumber, rowKey = punch.RowKey })</td>
+        </tr>
+    }
+</table>

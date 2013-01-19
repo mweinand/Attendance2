@@ -1,6 +1,17 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+
+@section scripts {
+    <script type="text/javascript">
+        (function () {
+            document.querySelector("#drawing").addEventListener("click", function () {
+                alert('boo');
+            });
+        })();
+    </script>
+}
+
 @section featured {
     <section class="featured">
         <div class="content-wrapper">
@@ -21,7 +32,7 @@
 <h3>We suggest the following:</h3>
 <ol class="round">
     <li class="one">
-        <h5>Getting Started</h5>
+        <h5 id="getstarted">Getting Started</h5>
         ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
         enables a clean separation of concerns and that gives you full control over markup
         for enjoyable, agile development. ASP.NET MVC includes many features that enable
@@ -43,3 +54,5 @@
         <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
     </li>
 </ol>
+
+<canvas style="width:500px; height: 100px;" id="drawing"></canvas>

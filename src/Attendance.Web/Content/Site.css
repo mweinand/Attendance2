@@ -754,3 +754,10 @@ tr.pager td {
             margin: 0;
         }
 }
+
+/* Custom Stuff */
+
+.tardy
+{
+	color: red;
+}
